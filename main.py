@@ -7,7 +7,7 @@ app.config['DEBUG'] = True
 
 @app.route("/")
 def index():
-    return render_template('home.html')
+    return redirect('/validate-entry')
 
 @app.route('/validate-entry')
 def display_empty_error():
