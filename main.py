@@ -47,13 +47,17 @@ def validate_entry():
         if verify_pswrd != password:
             password_match_error = 'Your passwords do not match'
             verify_password = ''
-    if len(email) < 3 or len(email) > 20 or (' ' in username) or (email.count("@") > 1) or (email.count(".") > 1):
+    if (len(email) > 0 and len(email) < 3)\
+        or len(email) > 20 \
+        or (' ' in email) \
+        or email.count("@") != 1 \
+        or email.count(".") != 1:
         email_error = 'Your email address must be between 3 and 20 characters in length and contain one @ and one period'
     
     if not username_error and not password_error and not password_match_error and not email_error:
         return redirect('/valid-entry?username={0}'.format(username))
     else:
-        return render_template('home.html', title="validation", username=username, password=password, verify_pswrd=verify_pswrd, email=email, username_error=username_error, password_error=password_error, password_match_error=password_match_error, email_error=email_error)
+        return render_template('home.html', title="validation", username=username, email=email, username_error=username_error, password_error=password_error, password_match_error=password_match_error, email_error=email_error)
 
 @app.route("/valid-entry")
 def valid_entry():
